@@ -10,6 +10,8 @@ import { initTimeline } from './modules/timeline';
 import { initTilt } from './modules/tilt';
 import { initReviews } from './modules/reviews';
 import { initLeadForm } from './modules/lead-form';
+import { initFitText } from './modules/fit-text';
+import { initFluidCursor } from './modules/fluid-cursor';
 
 initHeader();
 initMenu();
@@ -19,3 +21,5 @@ initTimeline();
 initTilt();
 initReviews();
 initLeadForm();
+initFitText();
+initFluidCursor();

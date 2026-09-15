@@ -288,10 +288,6 @@
     animation: marquee 42s linear infinite;
 }
 
-.marquee:hover .marquee__track {
-    animation-play-state: paused;
-}
-
 .marquee__group {
     display: flex;
     flex: none;
@@ -546,8 +542,8 @@
 .work-card__media {
     --rx: 0deg;
     --ry: 0deg;
-    --mx: 50%;
-    --my: 50%;
+    --cx: 0px;
+    --cy: 0px;
     position: relative;
     aspect-ratio: 4 / 3;
     overflow: hidden;
@@ -571,8 +567,8 @@
 
 .work-card__cursor {
     position: absolute;
-    top: var(--my);
-    left: var(--mx);
+    top: 50%;
+    left: 50%;
     display: grid;
     place-items: center;
     width: 116px;
@@ -583,14 +579,14 @@
     font-size: 0.9rem;
     font-weight: 560;
     opacity: 0;
-    translate: -50% -50%;
+    /* Follows the pointer 1:1 (offset set by tilt.js); no transition, or it trails behind */
+    translate: calc(-50% + var(--cx)) calc(-50% + var(--cy));
     scale: 0.4;
     pointer-events: none;
+    will-change: translate;
     transition:
         opacity 0.35s,
-        scale 0.6s var(--ease-out),
-        top 0.25s var(--ease-out),
-        left 0.25s var(--ease-out);
+        scale 0.6s var(--ease-out);
 }
 
 .work-card__link:hover .work-card__cursor,

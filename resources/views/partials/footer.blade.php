@@ -42,7 +42,9 @@
             <span>© {{ date('Y') }} {{ config('studio.name') }}</span>
             <span>Сайты · Веб-приложения · Telegram-боты · Автоматизация</span>
         </div>
-    </div>
 
-    <p class="site-footer__wordmark" aria-hidden="true">{{ config('studio.name') }}</p>
+        <div class="site-footer__wordmark" aria-hidden="true" data-fit-text>
+            <span>{{ config('studio.name') }}</span>
+        </div>
+    </div>
 </footer>
