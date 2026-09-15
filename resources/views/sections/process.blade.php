@@ -1,0 +1,27 @@
+<section class="section section--paper process" id="process" aria-labelledby="process-title">
+    <div class="container">
+        <x-section-head index="04" label="Процесс" title-id="process-title">
+            <x-slot:title>Понятный процесс — от идеи до запуска</x-slot:title>
+            <x-slot:lead>Шесть этапов, на каждом из которых вы знаете, что происходит и какой будет результат.</x-slot:lead>
+        </x-section-head>
+
+        <div class="timeline" data-timeline>
+            <div class="timeline__track" aria-hidden="true">
+                <span class="timeline__progress"></span>
+            </div>
+
+            <ol class="timeline__steps">
+                @foreach (config('studio.process') as $step)
+                    <li class="step" data-step>
+                        <span class="step__num">{{ sprintf('%02d', $loop->iteration) }}</span>
+                        <div class="step__content">
+                            <h3 class="step__title">{{ $step['title'] }}</h3>
+                            <p class="step__text">{{ $step['text'] }}</p>
+                            <p class="step__result"><span>Результат</span>{{ $step['result'] }}</p>
+                        </div>
+                    </li>
+                @endforeach
+            </ol>
+        </div>
+    </div>
+</section>
