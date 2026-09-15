@@ -13,11 +13,20 @@
         ['label' => $service['title']],
     ];
 
-    // Section labels are numbered in the order they appear on the page
-    $n = 0;
-    $next = function () use (&$n) {
-        return sprintf('%02d', ++$n);
-    };
+    // Section labels are numbered in page order, skipping blocks that are not rendered.
+    // A lookup (not a counter) because component attributes may be evaluated more than once.
+    $sections = array_keys(array_filter([
+        'includes' => true,
+        'audience' => true,
+        'result' => true,
+        'process' => true,
+        'pricing' => $plans->isNotEmpty(),
+        'work' => $projects->isNotEmpty(),
+        'faq' => true,
+        'others' => true,
+        'contact' => true,
+    ]));
+    $num = fn (string $key) => sprintf('%02d', array_search($key, $sections) + 1);
 @endphp
 
 @push('head')
@@ -98,7 +107,7 @@
 
     <section class="section section--flush-top" aria-labelledby="service-includes-title">
         <div class="container">
-            <x-section-head :index="$next()" label="Состав работ" title-id="service-includes-title">
+            <x-section-head :index="$num('includes')" label="Состав работ" title-id="service-includes-title">
                 <x-slot:title>Что входит в {{ $service['subject'] }}</x-slot:title>
             </x-section-head>
 
@@ -116,7 +125,7 @@
 
     <section class="section section--paper" aria-labelledby="service-audience-title">
         <div class="container">
-            <x-section-head :index="$next()" label="Кому подходит" title-id="service-audience-title">
+            <x-section-head :index="$num('audience')" label="Кому подходит" title-id="service-audience-title">
                 <x-slot:title>Кому это подходит</x-slot:title>
             </x-section-head>
 
@@ -134,7 +143,7 @@
     <section class="section service-result" aria-labelledby="service-result-title">
         <div class="container service-result__grid">
             <div class="service-result__head">
-                <p class="section-head__label" data-reveal><span>({{ $next() }})</span> Результат</p>
+                <p class="section-head__label" data-reveal><span>({{ $num('result') }})</span> Результат</p>
                 <h2 class="service-result__title" id="service-result-title" data-reveal>Что вы получаете</h2>
                 <p class="service-result__why" data-reveal>{{ $service['why'] }}</p>
             </div>
@@ -147,12 +156,12 @@
         </div>
     </section>
 
-    @include('sections.process', ['index' => $next(), 'sectionId' => 'service-process'])
+    @include('sections.process', ['index' => $num('process'), 'sectionId' => 'service-process'])
 
     @if ($plans->isNotEmpty())
         <section class="section pricing" id="service-pricing" aria-labelledby="service-pricing-title">
             <div class="container">
-                <x-section-head :index="$next()" label="Цены" title-id="service-pricing-title">
+                <x-section-head :index="$num('pricing')" label="Цены" title-id="service-pricing-title">
                     <x-slot:title>Стоимость</x-slot:title>
                     <x-slot:lead>Итоговая цена зависит от объёма и задач — назовём её после короткого обсуждения проекта.</x-slot:lead>
                 </x-section-head>
@@ -169,7 +178,7 @@
     @if ($projects->isNotEmpty())
         <section class="section section--flush-top" aria-labelledby="service-work-title">
             <div class="container">
-                <x-section-head :index="$next()" label="Работы" title-id="service-work-title">
+                <x-section-head :index="$num('work')" label="Работы" title-id="service-work-title">
                     <x-slot:title>Примеры работ</x-slot:title>
                 </x-section-head>
 
@@ -185,7 +194,7 @@
     <section class="section faq" aria-labelledby="service-faq-title">
         <div class="container faq__grid">
             <div class="faq__aside">
-                <x-section-head :index="$next()" label="FAQ" title-id="service-faq-title" class="section-head--stack">
+                <x-section-head :index="$num('faq')" label="FAQ" title-id="service-faq-title" class="section-head--stack">
                     <x-slot:title>Частые вопросы</x-slot:title>
                     <x-slot:lead>Не нашли ответ? Напишите нам — ответим и подскажем, с чего начать.</x-slot:lead>
                 </x-section-head>
@@ -197,7 +206,7 @@
 
     <section class="section section--flush-top" aria-labelledby="service-others-title">
         <div class="container">
-            <x-section-head :index="$next()" label="Услуги" title-id="service-others-title">
+            <x-section-head :index="$num('others')" label="Услуги" title-id="service-others-title">
                 <x-slot:title>Другие услуги</x-slot:title>
             </x-section-head>
 
@@ -205,5 +214,5 @@
         </div>
     </section>
 
-    @include('sections.contact', ['index' => $next(), 'projectType' => $service['type']])
+    @include('sections.contact', ['index' => $num('contact'), 'projectType' => $service['type']])
 @endsection

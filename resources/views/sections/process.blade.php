@@ -1,6 +1,8 @@
-<section class="section section--paper process" id="process" aria-labelledby="process-title">
+@php($sectionId = $sectionId ?? 'process')
+
+<section class="section section--paper process" id="{{ $sectionId }}" aria-labelledby="{{ $sectionId }}-title">
     <div class="container">
-        <x-section-head index="04" label="Процесс" title-id="process-title">
+        <x-section-head :index="$index ?? '04'" label="Процесс" title-id="{{ $sectionId }}-title">
             <x-slot:title>Понятный процесс — от идеи до запуска</x-slot:title>
             <x-slot:lead>Шесть этапов, на каждом из которых вы знаете, что происходит и какой будет результат.</x-slot:lead>
         </x-section-head>

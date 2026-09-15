@@ -9,6 +9,15 @@
                 <p>{{ config('studio.description') }}</p>
             </div>
 
+            <nav class="site-footer__col" aria-label="Услуги">
+                <h2 class="site-footer__heading"><a href="{{ route('services.index') }}">Услуги</a></h2>
+                <ul>
+                    @foreach (config('studio.services') as $service)
+                        <li><a href="{{ route('services.show', $service['slug']) }}">{{ $service['h1'] }}</a></li>
+                    @endforeach
+                </ul>
+            </nav>
+
             <nav class="site-footer__col" aria-label="Навигация в подвале">
                 <h2 class="site-footer__heading">Разделы</h2>
                 <ul>
