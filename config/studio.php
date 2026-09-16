@@ -30,6 +30,13 @@ return [
             ['label' => 'Telegram', 'meta' => '@'.$telegram, 'url' => "https://t.me/{$telegram}"],
             ['label' => 'Email', 'meta' => $email, 'url' => "mailto:{$email}"],
         ],
+        // Плавающая кнопка связи в углу экрана.
+        // icon — одна из иконок в partials/contact-dock.blade.php: whatsapp, telegram, instagram, email, phone
+        'dock' => [
+            ['label' => 'WhatsApp', 'icon' => 'whatsapp', 'url' => "https://wa.me/{$whatsapp}"],
+            ['label' => 'Telegram', 'icon' => 'telegram', 'url' => "https://t.me/{$telegram}"],
+            ['label' => 'Написать на почту', 'icon' => 'email', 'url' => "mailto:{$email}"],
+        ],
     ],
 
     'nav' => [

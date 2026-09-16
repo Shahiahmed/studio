@@ -576,3 +576,197 @@
         grid-column: 1 / -1;
     }
 }
+
+/* ==========================================================================
+   Contact dock
+   ========================================================================== */
+
+/* Floating button in the corner: opens the messengers. Sits under the mobile menu (z 55) */
+.dock {
+    position: fixed;
+    right: clamp(1rem, 2.5vw, 2rem);
+    bottom: clamp(1rem, 2.5vw, 2rem);
+    z-index: 50;
+    display: grid;
+    justify-items: end;
+    gap: 0.75rem;
+    opacity: 0;
+    translate: 0 14px;
+    pointer-events: none;
+    transition:
+        opacity 0.4s,
+        translate 0.5s var(--ease-out);
+}
+
+/* Shown once the first screen is scrolled past (class set in contact-dock.js) */
+.dock.is-visible {
+    opacity: 1;
+    translate: 0;
+    pointer-events: auto;
+}
+
+.dock__list {
+    display: grid;
+    justify-items: end;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Closed: hidden for the pointer and for the keyboard (visibility, not just opacity) */
+.dock__item {
+    visibility: hidden;
+    opacity: 0;
+    translate: 0 16px;
+    scale: 0.8;
+    transition:
+        opacity 0.25s,
+        translate 0.35s var(--ease-out),
+        scale 0.35s var(--ease-out),
+        visibility 0.35s;
+    transition-delay: calc((2 - var(--i, 0)) * 40ms);
+}
+
+.dock.is-open .dock__item {
+    visibility: visible;
+    opacity: 1;
+    translate: 0;
+    scale: 1;
+    transition-delay: calc(var(--i, 0) * 60ms);
+}
+
+.dock__link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.dock__label {
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--night-line);
+    background: var(--ink);
+    color: var(--on-night);
+    box-shadow: 0 14px 30px -18px rgb(20 20 19 / 0.7);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.dock__icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 16px 32px -18px rgb(20 20 19 / 0.55);
+    transition:
+        background-color 0.25s,
+        border-color 0.25s,
+        color 0.25s,
+        scale 0.25s var(--ease-out);
+}
+
+.dock__link:hover .dock__icon,
+.dock__link:focus-visible .dock__icon {
+    scale: 1.07;
+    border-color: transparent;
+}
+
+.dock__link--whatsapp:hover .dock__icon,
+.dock__link--whatsapp:focus-visible .dock__icon {
+    background: #25d366;
+    color: #fff;
+}
+
+.dock__link--telegram:hover .dock__icon,
+.dock__link--telegram:focus-visible .dock__icon {
+    background: #229ed9;
+    color: #fff;
+}
+
+.dock__link--instagram:hover .dock__icon,
+.dock__link--instagram:focus-visible .dock__icon {
+    background: linear-gradient(45deg, #f9ce34, #ee2a7b 55%, #6228d7);
+    color: #fff;
+}
+
+.dock__link--email:hover .dock__icon,
+.dock__link--email:focus-visible .dock__icon,
+.dock__link--phone:hover .dock__icon,
+.dock__link--phone:focus-visible .dock__icon {
+    background: var(--accent);
+    color: var(--ink);
+}
+
+.dock__toggle {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    /* Accent, so the button reads on the light sections and on the dark ones alike */
+    background: var(--accent);
+    color: var(--ink);
+    box-shadow: 0 20px 40px -18px rgb(20 20 19 / 0.7);
+    cursor: pointer;
+    transition:
+        background-color 0.3s,
+        color 0.3s,
+        scale 0.3s var(--ease-out);
+}
+
+.dock__toggle:hover {
+    scale: 1.06;
+}
+
+.dock.is-open .dock__toggle {
+    background: var(--ink);
+    /* Light rim, otherwise the dark circle disappears into the dark contact section */
+    box-shadow:
+        0 0 0 1px rgb(238 235 228 / 0.3),
+        0 20px 40px -18px rgb(20 20 19 / 0.7);
+    color: var(--on-night);
+}
+
+/* Both icons share one cell and cross-fade */
+.dock__toggle-icon {
+    grid-area: 1 / 1;
+    transition:
+        opacity 0.25s,
+        rotate 0.35s var(--ease-out);
+}
+
+.dock__toggle-icon--close {
+    opacity: 0;
+    rotate: -60deg;
+}
+
+.dock.is-open .dock__toggle-icon--chat {
+    opacity: 0;
+    rotate: 60deg;
+}
+
+.dock.is-open .dock__toggle-icon--close {
+    opacity: 1;
+    rotate: 0deg;
+}
+
+@media (max-width: 640px) {
+    .dock__icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .dock__toggle {
+        width: 52px;
+        height: 52px;
+    }
+}

@@ -40,5 +40,6 @@
     </main>
 
     @include('partials.footer')
+    @include('partials.contact-dock')
 </body>
 </html>

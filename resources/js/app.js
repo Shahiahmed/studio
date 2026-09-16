@@ -12,6 +12,7 @@ import { initReviews } from './modules/reviews';
 import { initLeadForm } from './modules/lead-form';
 import { initFitText } from './modules/fit-text';
 import { initFluidCursor } from './modules/fluid-cursor';
+import { initContactDock } from './modules/contact-dock';
 
 initHeader();
 initMenu();
@@ -23,3 +24,4 @@ initReviews();
 initLeadForm();
 initFitText();
 initFluidCursor();
+initContactDock();
