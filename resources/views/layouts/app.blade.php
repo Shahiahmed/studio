@@ -41,5 +41,6 @@
 
     @include('partials.footer')
     @include('partials.contact-dock')
+    @include('partials.scroll-top')
 </body>
 </html>

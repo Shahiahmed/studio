@@ -13,6 +13,7 @@ import { initLeadForm } from './modules/lead-form';
 import { initFitText } from './modules/fit-text';
 import { initFluidCursor } from './modules/fluid-cursor';
 import { initContactDock } from './modules/contact-dock';
+import { initScrollTop } from './modules/scroll-top';
 
 initHeader();
 initMenu();
@@ -25,3 +26,4 @@ initLeadForm();
 initFitText();
 initFluidCursor();
 initContactDock();
+initScrollTop();
