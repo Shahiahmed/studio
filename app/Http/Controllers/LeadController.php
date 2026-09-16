@@ -30,7 +30,7 @@ class LeadController extends Controller
 
     private function success(Request $request): JsonResponse|RedirectResponse
     {
-        $message = 'Спасибо! Заявка отправлена — мы свяжемся с вами и предложим решение.';
+        $message = __('Спасибо! Заявка отправлена — мы свяжемся с вами и предложим решение.');
 
         if ($request->expectsJson()) {
             return response()->json(['message' => $message]);

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $project->title.' — '.config('studio.name'))
+@section('title', $project->title.' — '.studio('name'))
 @section('description', $project->excerpt)
 @if ($project->imageUrl())
     @section('og_image', $project->imageUrl())
@@ -9,15 +9,15 @@
 @section('content')
     <article class="case">
         <header class="container case__hero">
-            <a href="{{ route('home') }}#work" class="case__back">
+            <a href="{{ locale_route('home') }}#work" class="case__back">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Все работы
+                {{ __('Все проекты') }}
             </a>
 
             <p class="case__meta" data-reveal>
                 <span class="tag">{{ $project->category }}</span>
                 @if ($project->is_concept)
-                    <span class="badge">Концепт</span>
+                    <span class="badge">{{ __('Концепт') }}</span>
                 @endif
             </p>
 
@@ -26,7 +26,7 @@
 
             @if ($project->url)
                 <div data-reveal>
-                    <x-button href="{{ $project->url }}" variant="ghost" target="_blank" rel="noopener">Открыть проект</x-button>
+                    <x-button href="{{ $project->url }}" variant="ghost" target="_blank" rel="noopener">{{ __('Открыть проект') }}</x-button>
                 </div>
             @endif
         </header>
@@ -47,9 +47,9 @@
 
         @php
             $blocks = array_filter([
-                'Задача' => $project->task,
-                'Решение' => $project->solution,
-                'Результат' => $project->result,
+                __('Задача') => $project->task,
+                __('Решение') => $project->solution,
+                __('Результат') => $project->result,
             ]);
         @endphp
 
@@ -64,7 +64,7 @@
 
                 @if ($project->tags)
                     <section class="case__block" data-reveal>
-                        <h2>Что внутри</h2>
+                        <h2>{{ __('Что внутри') }}</h2>
                         <div class="tags">
                             @foreach ($project->tags as $tag)
                                 <span class="tag">{{ $tag }}</span>
@@ -80,14 +80,14 @@
         <div class="container">
             <div class="pricing__help" data-reveal>
                 <div>
-                    <h2>Хотите похожий проект?</h2>
-                    <p>Расскажите о задаче — мы предложим решение и сориентируем по стоимости.</p>
+                    <h2>{{ __('Хотите похожий проект?') }}</h2>
+                    <p>{{ __('Расскажите о задаче — мы предложим решение и сориентируем по стоимости.') }}</p>
                 </div>
-                <x-button href="{{ route('home') }}#contact">Обсудить проект</x-button>
+                <x-button href="{{ locale_route('home') }}#contact">{{ __('Обсудить проект') }}</x-button>
             </div>
 
             @if ($more->isNotEmpty())
-                <h2 class="case__more-title" data-reveal>Другие работы</h2>
+                <h2 class="case__more-title" data-reveal>{{ __('Другие проекты') }}</h2>
                 <div class="work__grid work__grid--compact">
                     @foreach ($more as $item)
                         @include('partials.project-card', ['project' => $item])

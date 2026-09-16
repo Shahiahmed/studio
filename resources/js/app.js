@@ -15,6 +15,7 @@ import { initFluidCursor } from './modules/fluid-cursor';
 import { initContactDock } from './modules/contact-dock';
 import { initScrollTop } from './modules/scroll-top';
 import { initLeadModal } from './modules/lead-modal';
+import { initLangSwitch } from './modules/lang';
 
 initHeader();
 initMenu();
@@ -29,3 +30,4 @@ initFluidCursor();
 initContactDock();
 initScrollTop();
 initLeadModal();
+initLangSwitch();

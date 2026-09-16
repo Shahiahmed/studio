@@ -1,5 +1,5 @@
 {{-- $items: [['label' => ..., 'url' => ...], ...]; the last item is the current page --}}
-<nav class="breadcrumbs" aria-label="Хлебные крошки">
+<nav class="breadcrumbs" aria-label="{{ __('Хлебные крошки') }}">
     <ol>
         @foreach ($items as $item)
             <li>

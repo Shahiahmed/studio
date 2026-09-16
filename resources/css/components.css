@@ -314,8 +314,57 @@
     border-color: var(--night-line);
 }
 
+/* Переключатель языка: русский живёт на «голых» адресах, казахский — под /kz/ */
+.lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1rem;
+    padding: 0.2rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+}
+
+.lang__item {
+    padding: 0.32rem 0.62rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1;
+    color: var(--muted);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.lang__item:hover {
+    color: var(--ink);
+}
+
+.lang__item.is-active {
+    background: var(--ink);
+    color: var(--bg);
+}
+
+/* В тёмном мобильном меню цвета инвертируются */
+.lang--menu {
+    border-color: var(--night-line);
+}
+
+.lang--menu .lang__item {
+    font-size: 0.8rem;
+    color: var(--on-night-muted);
+}
+
+.lang--menu .lang__item:hover {
+    color: var(--on-night);
+}
+
+.lang--menu .lang__item.is-active {
+    background: var(--on-night);
+    color: var(--night);
+}
+
 @media (max-width: 960px) {
     .site-nav,
+    .lang--header,
     .site-header__cta {
         display: none;
     }

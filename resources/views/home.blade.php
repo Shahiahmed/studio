@@ -4,19 +4,19 @@
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'ProfessionalService',
-        'name' => config('studio.name'),
-        'description' => config('studio.description'),
+        'name' => studio('name'),
+        'description' => studio('description'),
         'url' => url('/'),
-        'email' => config('studio.contacts.email'),
-        'telephone' => config('studio.contacts.phone'),
-        'priceRange' => 'от 150 000 ₸',
-        'makesOffer' => collect(config('studio.services'))->map(fn ($service) => [
+        'email' => studio('contacts.email'),
+        'telephone' => studio('contacts.phone'),
+        'priceRange' => __('от 150 000 ₸'),
+        'makesOffer' => collect(studio('services'))->map(fn ($service) => [
             '@type' => 'Offer',
             'itemOffered' => [
                 '@type' => 'Service',
                 'name' => $service['h1'],
                 'description' => $service['what'],
-                'url' => route('services.show', $service['slug']),
+                'url' => locale_route('services.show', $service['slug']),
             ],
         ])->all(),
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>

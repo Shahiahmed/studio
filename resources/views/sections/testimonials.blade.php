@@ -2,25 +2,25 @@
     <section class="section reviews" aria-labelledby="reviews-title" data-reviews>
         <div class="container">
             <div class="reviews__head">
-                <x-section-head index="07" label="Отзывы" title-id="reviews-title">
-                    <x-slot:title>Что говорят клиенты</x-slot:title>
+                <x-section-head index="07" label="{{ __('Отзывы') }}" title-id="reviews-title">
+                    <x-slot:title>{{ __('Что говорят клиенты') }}</x-slot:title>
                 </x-section-head>
 
                 <div class="reviews__controls">
-                    <button type="button" class="round-btn" data-reviews-prev aria-label="Предыдущий отзыв">
+                    <button type="button" class="round-btn" data-reviews-prev aria-label="{{ __('Предыдущий отзыв') }}">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </button>
-                    <button type="button" class="round-btn" data-reviews-next aria-label="Следующий отзыв">
+                    <button type="button" class="round-btn" data-reviews-next aria-label="{{ __('Следующий отзыв') }}">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </button>
                 </div>
             </div>
 
-            <div class="reviews__track" data-reviews-track tabindex="0" aria-label="Отзывы клиентов">
+            <div class="reviews__track" data-reviews-track tabindex="0" aria-label="{{ __('Отзывы клиентов') }}">
                 @foreach ($testimonials as $testimonial)
                     <figure @class(['review', 'review--placeholder' => $testimonial->is_placeholder])>
                         @if ($testimonial->is_placeholder)
-                            <span class="tag">Место для отзыва</span>
+                            <span class="tag">{{ __('Место для отзыва') }}</span>
                         @endif
 
                         <blockquote class="review__body">
@@ -38,7 +38,7 @@
                                 </span>
                             </span>
                             @if ($testimonial->project)
-                                <span class="review__project">Проект: {{ $testimonial->project }}</span>
+                                <span class="review__project">{{ __('Проект: :name', ['name' => $testimonial->project]) }}</span>
                             @endif
                         </figcaption>
                     </figure>

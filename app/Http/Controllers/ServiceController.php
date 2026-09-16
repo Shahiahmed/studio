@@ -29,7 +29,7 @@ class ServiceController extends Controller
 
         return view('services.show', [
             'service' => $service,
-            'plans' => collect(config('studio.pricing'))->whereIn('type', $service['pricing_types'])->values(),
+            'plans' => collect(studio('pricing'))->whereIn('type', $service['pricing_types'])->values(),
             // A service without its own cases still shows recent work
             'projects' => $projects->isNotEmpty() ? $projects : Project::published()->limit(3)->get(),
             'others' => $services->where('slug', '!=', $slug)->values(),
@@ -38,6 +38,6 @@ class ServiceController extends Controller
 
     private function services(): Collection
     {
-        return collect(config('studio.services'));
+        return collect(studio('services'));
     }
 }

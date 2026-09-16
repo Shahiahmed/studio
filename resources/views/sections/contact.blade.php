@@ -7,14 +7,14 @@
 <section class="section contact" id="contact" aria-labelledby="contact-title">
     <div class="container contact__grid">
         <div class="contact__intro">
-            <p class="section-head__label" data-reveal><span>({{ $index ?? '09' }})</span> Заявка</p>
+            <p class="section-head__label" data-reveal><span>({{ $index ?? '09' }})</span> {{ __('Заявка') }}</p>
             <h2 class="contact__title" id="contact-title" data-reveal>
-                Есть идея? Давайте превратим её в&nbsp;<em>работающий продукт.</em>
+                {{ __('Есть идея? Давайте превратим её в') }}&nbsp;<em>{{ __('работающий продукт.') }}</em>
             </h2>
-            <p class="contact__lead" data-reveal>Расскажите о своей задаче — мы свяжемся с вами и предложим решение.</p>
+            <p class="contact__lead" data-reveal>{{ __('Расскажите о своей задаче — мы свяжемся с вами и предложим решение.') }}</p>
 
             <ul class="contact__channels" data-reveal>
-                @foreach (config('studio.contacts.channels') as $channel)
+                @foreach (studio('contacts.channels') as $channel)
                     <li>
                         <a class="channel" href="{{ $channel['url'] }}" target="_blank" rel="noopener">
                             <span>{{ $channel['label'] }}</span>

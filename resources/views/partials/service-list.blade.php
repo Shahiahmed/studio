@@ -1,10 +1,10 @@
-{{-- $services: list of services from config('studio.services'); $tag: heading level for titles --}}
+{{-- $services: list of services from studio('services'); $tag: heading level for titles --}}
 @php($tag = $tag ?? 'h3')
 
 <ol class="services__list">
     @foreach ($services as $service)
         <li class="service" data-reveal>
-            <a href="{{ route('services.show', $service['slug']) }}" class="service__link">
+            <a href="{{ locale_route('services.show', $service['slug']) }}" class="service__link">
                 <span class="service__index">{{ sprintf('%02d', $loop->iteration) }}</span>
                 <{{ $tag }} class="service__title">{{ $service['title'] }}</{{ $tag }}>
                 <span class="service__body">

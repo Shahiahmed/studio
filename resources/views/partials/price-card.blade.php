@@ -6,10 +6,10 @@
 
     @if ($plan['price'])
         <p class="price-card__price">
-            <span class="price-card__from">от</span>{{ number_format($plan['price'], 0, '', ' ') }}&nbsp;₸
+            <span class="price-card__from">{{ __('от') }}</span>{{ number_format($plan['price'], 0, '', ' ') }}&nbsp;₸
         </p>
     @else
-        <p class="price-card__price price-card__price--custom">Индивидуальный расчёт</p>
+        <p class="price-card__price price-card__price--custom">{{ __('Индивидуальный расчёт') }}</p>
     @endif
 
     <ul class="price-card__list">
@@ -19,6 +19,6 @@
     </ul>
 
     <x-button href="#contact" :variant="($plan['featured'] ?? false) ? 'accent' : 'ghost'" data-project-type="{{ $plan['type'] }}">
-        Получить расчёт
+        {{ __('Получить расчёт') }}
     </x-button>
 </article>

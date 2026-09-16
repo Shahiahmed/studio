@@ -22,6 +22,13 @@ return [
     // Регион работы для микроразметки услуг (schema.org areaServed)
     'area_served' => env('STUDIO_AREA', 'Казахстан'),
 
+    // Языки сайта. Первый — основной: он на «голых» адресах и хранит контент здесь.
+    // Остальные получают префикс в адресе, а переводы лежат в lang/{код}/studio.php.
+    'locales' => [
+        'ru' => ['label' => 'Рус', 'name' => 'Русский', 'segment' => null, 'og' => 'ru_RU'],
+        'kk' => ['label' => 'Қаз', 'name' => 'Қазақша', 'segment' => 'kz', 'og' => 'kk_KZ'],
+    ],
+
     'contacts' => [
         'email' => $email,
         'phone' => $phone,
@@ -41,7 +48,7 @@ return [
 
     'nav' => [
         ['id' => 'services', 'label' => 'Услуги'],
-        ['id' => 'work', 'label' => 'Работы'],
+        ['id' => 'work', 'label' => 'Наши проекты'],
         ['id' => 'process', 'label' => 'Процесс'],
         ['id' => 'pricing', 'label' => 'Цены'],
         ['id' => 'about', 'label' => 'О нас'],

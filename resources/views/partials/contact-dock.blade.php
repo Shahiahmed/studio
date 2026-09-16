@@ -1,5 +1,5 @@
 @php
-    $dock = config('studio.contacts.dock', []);
+    $dock = studio('contacts.dock', []);
 
     // Бренд-иконки: WhatsApp и Telegram — Simple Icons (CC0), остальные нарисованы линиями
     $icons = [
@@ -35,7 +35,7 @@
             type="button"
             aria-expanded="false"
             aria-controls="dock-channels"
-            aria-label="Написать нам"
+            aria-label="{{ __('Написать нам') }}"
             data-dock-toggle
         >
             <svg class="dock__toggle-icon dock__toggle-icon--chat" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
