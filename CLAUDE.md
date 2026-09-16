@@ -57,15 +57,25 @@ SEO: canonical, OG, JSON-LD (Organization/Service/FAQPage/BreadcrumbList) на �
   и сайты с доменами на 80/443.
 - `APP_TIMEZONE` пока UTC.
 
-### Обновление после `git push`
+### Автодеплой
+
+Пуш в `main` → GitHub Actions ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)) заходит на сервер по SSH и запускает деплой. Руками ничего делать не нужно; тот же workflow можно запустить кнопкой на вкладке Actions.
+
+Как это собрано:
+
+- секрет `DEPLOY_SSH_KEY` в настройках репозитория — приватный ключ от пары `/root/.ssh/github-actions*` на сервере;
+- в `/root/.ssh/authorized_keys` этот ключ записан с `restrict,command="/usr/local/bin/studio-deploy"` — по нему нельзя выполнить ничего, кроме деплоя;
+- `/usr/local/bin/studio-deploy` лежит вне репозитория (git переписывает рабочую копию) и делает `git fetch` + `git reset --hard origin/main`, после чего передаёт управление в [deploy.sh](deploy.sh);
+- [deploy.sh](deploy.sh) — сами шаги сборки, их можно менять пушем;
+- лог всех деплоев на сервере: `/var/log/studio-deploy.log`.
+
+`git reset --hard` затирает локальные правки в `/var/www/studio` — чинить продакшен правкой файлов на сервере нельзя, только пушем. Untracked-файлы (`.env`, картинки в `storage/app/public`) не трогаются.
+
+Если Actions недоступен, то же самое руками:
 
 ```bash
-ssh root@185.194.217.14
-cd /var/www/studio && git pull && composer install --no-dev -o && npm ci && npm run build && rm -rf node_modules \
-  && php artisan migrate --force && php artisan optimize && chown -R www-data:www-data .
+ssh root@185.194.217.14 /usr/local/bin/studio-deploy
 ```
-
-Артизан-команды от root создают файлы с владельцем root (например `storage/logs/laravel.log`) — после них делать `chown -R www-data:www-data storage bootstrap/cache`.
 
 ### Когда появится домен
 

@@ -1,0 +1,42 @@
+name: Деплой на продакшен
+
+on:
+  push:
+    branches: [main]
+  # Позволяет запустить деплой вручную кнопкой на вкладке Actions
+  workflow_dispatch:
+
+# Два деплоя одновременно сломали бы сборку, поэтому они встают в очередь
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Обновить 185.194.217.14:8084
+    runs-on: ubuntu-latest
+    steps:
+      - name: Подключиться по SSH и собрать проект
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          if [ -z "$DEPLOY_SSH_KEY" ]; then
+            echo "Нет секрета DEPLOY_SSH_KEY: Settings → Secrets and variables → Actions"
+            exit 1
+          fi
+
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # Ключ сервера прописан заранее, чтобы не доверять первому встречному хосту
+          printf '%s\n' "185.194.217.14 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAC33fn1+JESs5tbSBYtEDvEs3vigpQWxcYSTqc7F5w7" > ~/.ssh/known_hosts
+
+          # Команда на сервере задана в authorized_keys, здесь её указать нельзя
+          ssh -i ~/.ssh/deploy_key -o BatchMode=yes root@185.194.217.14
+
+      - name: Проверить, что сайт отвечает
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 http://185.194.217.14:8084/)
+          echo "Главная страница ответила $code"
+          [ "$code" = "200" ]
