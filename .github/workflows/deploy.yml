@@ -26,7 +26,9 @@ jobs:
           fi
 
           mkdir -p ~/.ssh
-          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          # tr убирает возможные \r: ключ обычно копируют через буфер обмена Windows,
+          # а ssh с такими переводами строк отказывается читать файл
+          printf '%s\n' "$DEPLOY_SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
           # Ключ сервера прописан заранее, чтобы не доверять первому встречному хосту
