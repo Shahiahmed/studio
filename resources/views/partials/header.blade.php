@@ -13,7 +13,7 @@
             </ul>
         </nav>
 
-        <x-button href="{{ route('home') }}#contact" size="sm" class="site-header__cta">Обсудить проект</x-button>
+        <x-button href="{{ route('home') }}#contact" size="sm" class="site-header__cta" data-lead-modal-open>Обсудить проект</x-button>
 
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
             <span class="sr-only" data-menu-label>Открыть меню</span>
@@ -36,7 +36,7 @@
     </nav>
 
     <div class="mobile-menu__footer">
-        <x-button href="{{ route('home') }}#contact" variant="accent">Обсудить проект</x-button>
+        <x-button href="{{ route('home') }}#contact" variant="accent" data-lead-modal-open>Обсудить проект</x-button>
         <ul class="mobile-menu__channels">
             @foreach (config('studio.contacts.channels') as $channel)
                 <li><a href="{{ $channel['url'] }}" target="_blank" rel="noopener">{{ $channel['label'] }}</a></li>

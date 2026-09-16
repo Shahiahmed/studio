@@ -1,6 +1,9 @@
 export function initLeadForm() {
-    const form = document.querySelector('[data-lead-form]');
-    if (!form) return;
+    // Две формы на странице: в секции «Заявка» и в модалке из шапки
+    document.querySelectorAll('[data-lead-form]').forEach(setupForm);
+}
+
+function setupForm(form) {
 
     const status = form.querySelector('[data-form-status]');
     const submit = form.querySelector('[type="submit"]');

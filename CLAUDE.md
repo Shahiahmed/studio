@@ -18,7 +18,10 @@
   `benefits`, `faq`, `pricing_types`, `project_categories`.
 - **Проекты и отзывы** — в БД, начальные данные в `database/seeders/StudioContentSeeder.php`.
   Картинки проектов — `storage/app/public/projects/*.webp` (в git не попадают).
-- **Медиа hero** (видео, постер, сгенерированы в Higgsfield) — `public/media/`, лежат в git.
+- **Правый блок hero** — не видео, а интерфейс на вёрстке (`.mock` в `sections/hero.blade.php`,
+  стили в `sections.css`). Низкий кадр сам прячет лишние строки через `@container`.
+  В `public/media/hero/` остался `hero-poster.webp` — он используется как OG-картинка;
+  `hero.mp4` больше нигде не подключён.
 - Главная собирается из `resources/views/sections/*`; общие куски — `resources/views/partials/*`.
 
 ## Маршруты

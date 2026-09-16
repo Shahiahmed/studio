@@ -581,7 +581,8 @@
    Contact dock
    ========================================================================== */
 
-/* Floating button in the corner: opens the messengers. Sits under the mobile menu (z 55) */
+/* Floating button in the corner: opens the messengers. Sits under the mobile menu (z 55).
+   Visible from the first screen: it is the shortest way to write to the studio */
 .dock {
     position: fixed;
     right: clamp(1rem, 2.5vw, 2rem);
@@ -590,19 +591,6 @@
     display: grid;
     justify-items: end;
     gap: 0.75rem;
-    opacity: 0;
-    translate: 0 14px;
-    pointer-events: none;
-    transition:
-        opacity 0.4s,
-        translate 0.5s var(--ease-out);
-}
-
-/* Shown once the first screen is scrolled past (class set in contact-dock.js) */
-.dock.is-visible {
-    opacity: 1;
-    translate: 0;
-    pointer-events: auto;
 }
 
 .dock__list {
@@ -829,5 +817,170 @@
     .to-top {
         width: 46px;
         height: 46px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Lead modal
+   ========================================================================== */
+
+/* Native <dialog> lives in the top layer, so it needs no z-index of its own */
+.modal {
+    width: min(720px, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-l);
+    background: transparent;
+    color: var(--on-night);
+}
+
+.modal::backdrop {
+    background: rgb(18 18 17 / 0.72);
+    backdrop-filter: blur(3px);
+}
+
+.modal[open] {
+    animation: modal-in 0.4s var(--ease-out);
+}
+
+.modal[open]::backdrop {
+    animation: modal-fade 0.4s;
+}
+
+@keyframes modal-in {
+    from {
+        opacity: 0;
+        translate: 0 18px;
+    }
+}
+
+@keyframes modal-fade {
+    from {
+        opacity: 0;
+    }
+}
+
+.modal__panel {
+    position: relative;
+    max-height: calc(100dvh - 2rem);
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    overflow-y: auto;
+    border: 1px solid var(--night-line);
+    border-radius: var(--radius-l);
+    background: var(--night);
+}
+
+.modal__close {
+    position: absolute;
+    top: clamp(1rem, 2vw, 1.5rem);
+    right: clamp(1rem, 2vw, 1.5rem);
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--night-line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--on-night);
+    cursor: pointer;
+    transition:
+        background-color 0.25s,
+        border-color 0.25s,
+        color 0.25s;
+}
+
+.modal__close:hover,
+.modal__close:focus-visible {
+    border-color: transparent;
+    background: var(--accent);
+    color: var(--ink);
+}
+
+.modal__label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.modal__title {
+    margin-top: 0.6rem;
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+    line-height: 1.1;
+}
+
+.modal__lead {
+    margin-top: 0.6rem;
+    /* The close button sits in the corner, so the text stops short of it */
+    max-width: 34ch;
+    color: var(--on-night-muted);
+}
+
+/* Inside the panel the form is already on a dark surface: no second card around it */
+.modal .lead-form {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+    padding: 0;
+    border: 0;
+    background: none;
+}
+
+/* Tighter than the section form: the point is to fit a laptop screen without scrolling */
+.modal .lead-form__fields,
+.modal .lead-form__row {
+    gap: 1.15rem;
+}
+
+.modal fieldset.field .field__label {
+    margin-bottom: 0.5rem;
+}
+
+.modal .choice-list {
+    gap: 0.4rem;
+}
+
+.modal .choice span {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.85rem;
+}
+
+.modal textarea.field__input {
+    min-height: 76px;
+}
+
+/* On a short screen the subtitle is the first thing that can go */
+@media (max-height: 720px) {
+    .modal__lead {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    /* Phone: the dialog takes almost the whole screen, so the form still fits without scrolling */
+    .modal,
+    .modal__panel {
+        max-height: calc(100dvh - 1rem);
+    }
+
+    .modal {
+        width: calc(100vw - 1.5rem);
+    }
+
+    .modal__panel {
+        padding: 1rem;
+    }
+
+    .modal__close {
+        width: 36px;
+        height: 36px;
+    }
+
+    .modal__lead {
+        display: none;
+    }
+
+    .modal textarea.field__input {
+        min-height: 64px;
     }
 }

@@ -126,16 +126,185 @@
     will-change: transform;
 }
 
-.hero__video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1.2s var(--ease-out);
+/* Окно приложения, собранное вёрсткой вместо видео: чёткое на любом экране и ничего не весит */
+.mock {
+    container-type: size;
+    position: absolute;
+    inset: clamp(0.9rem, 2.4vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.7);
+    border-radius: clamp(12px, 1.4vw, 18px);
+    background: rgb(247 245 240 / 0.82);
+    box-shadow: 0 30px 70px -36px rgb(20 20 19 / 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
-.hero__video.is-playing {
-    opacity: 1;
+.mock__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.mock__dots {
+    display: flex;
+    gap: 5px;
+}
+
+.mock__dots i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--line-strong);
+}
+
+.mock__dots i:first-child {
+    background: var(--accent);
+}
+
+.mock__live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-left: auto;
+}
+
+.mock__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: clamp(0.6rem, 1.4vw, 1.25rem);
+    flex: 1;
+    min-height: 0;
+    padding: clamp(0.7rem, 1.6vw, 1.25rem);
+}
+
+.mock__list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.35rem, 1vh, 0.65rem);
+    min-height: 0;
+    overflow: hidden;
+}
+
+.mock__row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: clamp(0.45rem, 1vh, 0.7rem) clamp(0.55rem, 1vw, 0.85rem);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.55);
+    font-size: clamp(0.72rem, 0.9vw, 0.875rem);
+}
+
+.mock__row.is-new {
+    border-color: rgb(255 79 31 / 0.35);
+    background: rgb(255 79 31 / 0.08);
+}
+
+/* Строки появляются по очереди: заявка «прилетает» в кабинет.
+   Без JS класса .js нет, поэтому список просто виден */
+.js .mock__row {
+    opacity: 0;
+    translate: 0 10px;
+}
+
+.is-loaded .mock__row {
+    animation: mock-row 0.7s var(--ease-out) calc(0.45s + var(--i) * 0.14s) forwards;
+}
+
+@keyframes mock-row {
+    to {
+        opacity: 1;
+        translate: 0;
+    }
+}
+
+.mock__badge {
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.66em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.mock__dot {
+    width: 7px;
+    height: 7px;
+    margin-inline: 0.4rem;
+    border-radius: 50%;
+    background: var(--line-strong);
+}
+
+.mock__name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mock__time {
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    color: var(--muted);
+}
+
+.mock__panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    padding: clamp(0.6rem, 1.2vw, 1rem);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgb(255 255 255 / 0.55);
+}
+
+.mock__label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.mock__value {
+    margin-top: 0.15rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+    line-height: 1;
+}
+
+.mock__value span {
+    color: var(--accent);
+}
+
+.mock__legend {
+    display: grid;
+    gap: 0.3rem;
+    margin-top: auto;
+    padding-top: 0.6rem;
+    font-size: clamp(0.68rem, 0.8vw, 0.8rem);
+    color: var(--muted);
+}
+
+.mock__legend li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
 }
 
 .chip {
@@ -189,30 +358,19 @@
     color: var(--ink);
 }
 
-.chip--lead {
-    --depth: 22;
-    top: 10%;
-    left: -1%;
-}
-
-.chip--chart {
-    --depth: 34;
-    top: 16%;
-    right: 4%;
-    animation-delay: -2s;
-}
-
 .chip--bot {
-    --depth: 28;
-    bottom: 12%;
-    left: 7%;
+    --depth: 26;
+    bottom: 0;
+    left: 0;
+    margin: 0 0 -12px -24px;
     animation-delay: -4s;
 }
 
 .chip--deploy {
-    --depth: 14;
-    right: -1%;
-    bottom: 18%;
+    --depth: 16;
+    top: 0;
+    right: 0;
+    margin: -16px -20px 0 0;
     background: rgb(20 20 19 / 0.88);
     border-color: rgb(255 255 255 / 0.08);
     color: var(--on-night);
@@ -230,12 +388,14 @@
 }
 
 .sparkline {
-    width: 120px;
-    height: 40px;
-    margin-top: 0.25rem;
+    width: 100%;
+    height: clamp(26px, 5.5vh, 44px);
+    min-height: 18px;
+    margin-top: 0.5rem;
 }
 
 .sparkline path {
+    vector-effect: non-scaling-stroke;
     stroke: var(--accent);
     stroke-width: 2;
     stroke-linecap: round;
@@ -248,6 +408,43 @@
 @keyframes draw {
     to {
         stroke-dashoffset: 0;
+    }
+}
+
+/* Кадр бывает низким (ноутбуки): окно само убирает лишнее, чтобы ничего не обрезалось */
+@container (max-height: 270px) {
+    .mock__row:nth-child(n + 4) {
+        display: none;
+    }
+
+    .mock__legend {
+        display: none;
+    }
+
+    .mock__list {
+        gap: 0.3rem;
+    }
+
+    .sparkline {
+        margin-top: auto;
+    }
+}
+
+@container (max-height: 175px) {
+    .mock__row:nth-child(n + 3) {
+        display: none;
+    }
+
+    .mock__row {
+        padding: 0.35rem 0.55rem;
+    }
+
+    .mock__bar {
+        padding: 0.4rem 0.7rem;
+    }
+
+    .sparkline {
+        display: none;
     }
 }
 
@@ -372,6 +569,8 @@
         grid-row: 3;
         min-height: 0;
         margin-top: clamp(1rem, 3vh, 2.5rem);
+        /* Небольшой отступ снизу: окно не упирается в бегущую строку */
+        margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
     }
 
     /* The row sets the height, so the frame crops the video instead of deriving height from it */
@@ -394,6 +593,11 @@
     .chip {
         padding: 0.65rem 0.85rem;
         font-size: 0.8rem;
+    }
+
+    /* Низкий экран: окну нужно меньше полей */
+    .mock {
+        inset: clamp(0.6rem, 1.2vw, 1rem);
     }
 }
 
@@ -431,20 +635,23 @@
         font-size: 0.8rem;
     }
 
-    .chip--lead {
-        left: 4%;
-        top: 6%;
-    }
-
     .chip--bot {
         left: auto;
-        right: 4%;
-        bottom: 6%;
+        right: 0;
+        margin: 0 -10px -28px 0;
     }
 
-    .chip--chart,
     .chip--deploy {
         display: none;
+    }
+
+    /* Портретный кадр: список и сводка встают друг под друга */
+    .mock__body {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .mock__list {
+        gap: 0.3rem;
     }
 }
 

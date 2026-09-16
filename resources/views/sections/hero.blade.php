@@ -30,28 +30,52 @@
 
         <div class="hero__stage" data-hero-stage>
             <div class="hero__frame" data-hero-frame>
-                <video class="hero__video" data-hero-video muted loop playsinline preload="none" poster="{{ asset('media/hero/hero-poster.webp') }}" aria-hidden="true" tabindex="-1">
-                    <source data-src="{{ asset('media/hero/hero.mp4') }}" type="video/mp4">
-                </video>
-            </div>
+                {{-- Интерфейс собран вёрсткой, а не видео: чёткий на любом экране и ничего не весит --}}
+                <div class="mock" aria-hidden="true">
+                    <div class="mock__bar">
+                        <span class="mock__dots"><i></i><i></i><i></i></span>
+                        <span class="mock__tab">Заявки</span>
+                        <span class="mock__live"><span class="pulse"></span>онлайн</span>
+                    </div>
 
-            <div class="chip chip--lead" aria-hidden="true">
-                <span class="chip__icon">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="m2.5 7.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <span class="chip__text">
-                    <strong>Новая заявка</strong>
-                    <small>Интернет-магазин · только что</small>
-                </span>
-            </div>
+                    <div class="mock__body">
+                        <ul class="mock__list">
+                            <li class="mock__row is-new" style="--i: 0">
+                                <span class="mock__badge">new</span>
+                                <span class="mock__name">Интернет-магазин</span>
+                                <span class="mock__time">только что</span>
+                            </li>
+                            <li class="mock__row" style="--i: 1">
+                                <span class="mock__dot"></span>
+                                <span class="mock__name">Telegram-бот для записи</span>
+                                <span class="mock__time">12 мин</span>
+                            </li>
+                            <li class="mock__row" style="--i: 2">
+                                <span class="mock__dot"></span>
+                                <span class="mock__name">Личный кабинет клиента</span>
+                                <span class="mock__time">40 мин</span>
+                            </li>
+                            <li class="mock__row" style="--i: 3">
+                                <span class="mock__dot"></span>
+                                <span class="mock__name">Лендинг под запуск</span>
+                                <span class="mock__time">2 ч</span>
+                            </li>
+                        </ul>
 
-            <div class="chip chip--chart" aria-hidden="true">
-                <span class="chip__text">
-                    <small>Заявки за неделю</small>
-                    <svg class="sparkline" viewBox="0 0 120 40" fill="none">
-                        <path d="M2 34 20 28l16 3 18-11 18 3 18-11 28-6" />
-                    </svg>
-                </span>
+                        <div class="mock__panel">
+                            <p class="mock__label">Заявки за неделю</p>
+                            <p class="mock__value">+38<span>%</span></p>
+                            <svg class="sparkline" viewBox="0 0 120 40" fill="none" preserveAspectRatio="none">
+                                <path d="M2 34 20 28l16 3 18-11 18 3 18-11 28-6" />
+                            </svg>
+                            <ul class="mock__legend">
+                                <li><span>Сайты</span><span>12</span></li>
+                                <li><span>Боты</span><span>7</span></li>
+                                <li><span>Автоматизация</span><span>5</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="chip chip--bot" aria-hidden="true">
